@@ -4,6 +4,8 @@ import Header from './Header'
 import flixbg from '../assets/flixbg.jpg'
 import { useState, useRef } from 'react'
 import {validate} from "../utils/validate"
+import { auth } from '../utils/firebase' 
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -27,15 +29,46 @@ const Login = () => {
     e.preventDefault();
     const emailValue = email.current.value;
     const passwordValue = password.current.value;
-    const nameValue = isSignIn ? null : name.current.value;
 
     const validation = validate(emailValue, passwordValue, isSignIn);
     // console.log(validation);
     if(validation !== null) {
       setError(validation);
+      return; 
     }
-    // Here you would typically handle the form submission, e.g., send data to your backend
-    console.log("Form submitted:", { name: nameValue, email: emailValue, password: passwordValue });
+
+    if(!isSignIn){
+      // signup logic
+      createUserWithEmailAndPassword(auth, emailValue, passwordValue)
+      .then((userCredential) => {
+        // Signed up 
+        const user = userCredential.user;
+        // console.log("User created:", user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // console.log("Error: " + errorMessage);
+        setError(errorMessage); 
+      });
+    }
+    else{
+      // signin logic
+      signInWithEmailAndPassword(auth, emailValue, passwordValue)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Error: " + errorMessage);
+        setError(errorMessage);
+      });
+
+    }
+    
   }
 
   return (
