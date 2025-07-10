@@ -2,13 +2,40 @@
 import React from 'react'
 import Header from './Header'
 import flixbg from '../assets/flixbg.jpg'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import {validate} from "../utils/validate"
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [error, setError] = useState("");
+
+  const name = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
   
-  function toggleSignIn() {
+  function toggleSignInForm() {
     setIsSignIn(!isSignIn);
+    setError(""); // Clear error message
+    
+    // Clear form fields
+    if (email.current) email.current.value = "";
+    if (password.current) password.current.value = "";
+    if (name.current) name.current.value = "";
+  }
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    const emailValue = email.current.value;
+    const passwordValue = password.current.value;
+    const nameValue = isSignIn ? null : name.current.value;
+
+    const validation = validate(emailValue, passwordValue, isSignIn);
+    // console.log(validation);
+    if(validation !== null) {
+      setError(validation);
+    }
+    // Here you would typically handle the form submission, e.g., send data to your backend
+    console.log("Form submitted:", { name: nameValue, email: emailValue, password: passwordValue });
   }
 
   return (
@@ -32,25 +59,26 @@ const Login = () => {
         <form className="bg-black bg-opacity-75 p-12 rounded-xl w-full max-w-md mx-4">
           <h1 className="text-white text-3xl font-bold mb-8">{isSignIn ? "Sign In" : "Sign Up"}</h1>
           { !isSignIn && <input 
-            type="text" 
+            type="text" ref={name}
             placeholder="Full Name" 
             className="w-full p-4 mb-4 rounded bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:border-white" 
           />}
-          <input 
+          <input ref={email}
             type="email" 
             placeholder="Email or phone number" 
             className="w-full p-4 mb-4 rounded bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:border-white" 
           />
-          <input 
+          <input ref={password}
             type="password" 
             placeholder="Password" 
             className="w-full p-4 mb-6 rounded bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:border-white" 
           />
-          <button className="w-full bg-red-600 hover:bg-red-700 text-white p-4 rounded font-semibold mb-4 transition-colors">
+          {error && <div className="text-red-500 mb-4">{error}</div>}
+          <button onClick={submitForm} className="w-full bg-red-600 hover:bg-red-700 text-white p-4 rounded font-semibold mb-4 transition-colors">
             Sign{isSignIn ? "In" : " Up"}
           </button>
           <div className="text-gray-400 text-center">
-           {isSignIn ? "New to Netflix?": "Already Registered?" } <button onClick={toggleSignIn}type="button" className="text-white hover:underline">{isSignIn?"Sign Up now":"Sign In"}</button>
+           {isSignIn ? "New to Netflix?": "Already Registered?" } <button onClick={toggleSignInForm}type="button" className="text-white hover:underline">{isSignIn?"Sign Up now":"Sign In"}</button>
           </div>
         </form>
       </div>
