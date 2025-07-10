@@ -50,7 +50,7 @@ const Login = () => {
             Sign{isSignIn ? "In" : " Up"}
           </button>
           <div className="text-gray-400 text-center">
-           {!isSignIn ? "New to Netflix?": "Already Registered?" } <button onClick={toggleSignIn}type="button" className="text-white hover:underline">{isSignIn?"Sign Up now":"Sign In"}</button>
+           {isSignIn ? "New to Netflix?": "Already Registered?" } <button onClick={toggleSignIn}type="button" className="text-white hover:underline">{isSignIn?"Sign Up now":"Sign In"}</button>
           </div>
         </form>
       </div>
