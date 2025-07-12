@@ -6,11 +6,13 @@ import { useState, useRef } from 'react'
 import {validate} from "../utils/validate"
 import { auth } from '../utils/firebase' 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import {useNavigate} from 'react-router-dom';
 
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { googleProvider } from "../utils/firebase";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [isSignIn, setIsSignIn] = useState(true);
   const [error, setError] = useState("");
 
@@ -23,6 +25,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log("Google Sign-in successful:", user);
+        navigate('/browse'); // Redirect to browse page after successful Google sign-in
         // Redirect to dashboard/home page
       })
       .catch((error) => {
@@ -59,6 +62,7 @@ const Login = () => {
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
+        navigate('/browse'); // Redirect to browse page after successful signup
         // console.log("User created:", user);
       })
       .catch((error) => {
@@ -75,6 +79,7 @@ const Login = () => {
         // Signed in 
         const user = userCredential.user;
         console.log(user);
+        navigate('/browse'); // Redirect to browse page after successful signin
       })
       .catch((error) => {
         const errorCode = error.code;
