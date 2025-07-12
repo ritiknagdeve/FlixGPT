@@ -77,7 +77,7 @@ const Header = () => {
 
     return(() => {
       // Cleanup function to unsubscribe from auth state changes
-      onAuthStateChanged(auth, null);
+      // onAuthStateChanged(auth, null);
     });
   }, []);
 
