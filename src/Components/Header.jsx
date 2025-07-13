@@ -14,6 +14,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
+  const [isAISearchPage, setIsAISearchPage] = useState(false);
+
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   const handleSignOut = () => {
@@ -27,6 +29,16 @@ const Header = () => {
       console.log("Sign-out error:", error);
     });
 
+  }
+
+  const handleAISearch = () => {
+    setIsAISearchPage(true);
+    navigate('/browse/ai-search'); 
+  }
+
+  const goToHome = () => {
+    setIsAISearchPage(false);
+    navigate('/browse');
   }
 
   useEffect(() => {
@@ -95,6 +107,18 @@ const Header = () => {
         {/* Show user controls only when auth is loaded and user exists */}
         {!isAuthLoading && user && (
           <>
+            {/* AI Search Button */}
+            <button onClick={() => {!isAISearchPage ? handleAISearch() : goToHome()} }
+              className="flex items-center bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-all duration-200 mr-4 border border-gray-600 hover:border-gray-500 group"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              { !isAISearchPage ? "Ask AI" : "Go to Home" }
+              <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
             {user.photoURL ? (
               <img 
                 src={user.photoURL} 
