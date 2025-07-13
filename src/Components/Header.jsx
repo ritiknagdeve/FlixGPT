@@ -106,23 +106,24 @@ const Header = () => {
 
   return (
     <>
-    <div className="absolute top-0 left-0 w-full z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent">
-      <div className="flex items-center p-4">
-          <img src={flixgptLogo} alt="FlixGPT Logo" className="h-12 w-auto mr-4" />
+    <div className="absolute top-0 left-0 w-full z-20 flex items-center justify-between p-2 sm:p-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent">
+      <div className="flex items-center p-2 sm:p-4">
+          <img src={flixgptLogo} alt="FlixGPT Logo" className="h-8 sm:h-12 w-auto mr-2 sm:mr-4" />
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center gap-2 sm:gap-0">
         {/* Show user controls only when auth is loaded and user exists */}
         {!isAuthLoading && user && (
           <>
             {/* AI Search Button */}
             <button onClick={() => {!isAISearchPage ? handleAISearch() : goToHome()} }
-              className="flex items-center bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-all duration-200 mr-4 border border-gray-600 hover:border-gray-500 group"
+              className="flex items-center bg-gray-800 hover:bg-gray-700 text-white px-2 sm:px-4 py-2 rounded-md transition-all duration-200 mr-2 sm:mr-4 border border-gray-600 hover:border-gray-500 group text-sm sm:text-base"
             >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-4 h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              { !isAISearchPage ? "Ask AI" : "Go to Home" }
-              <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="hidden sm:inline">{ !isAISearchPage ? "Ask AI" : "Go to Home" }</span>
+              <span className="sm:hidden">{ !isAISearchPage ? "AI" : "Home" }</span>
+              <svg className="w-4 h-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -130,7 +131,7 @@ const Header = () => {
               <img 
                 src={user.photoURL} 
                 alt="dp" 
-                className="rounded-full h-10 w-10 mr-4"
+                className="rounded-full h-8 w-8 sm:h-10 sm:w-10 mr-2 sm:mr-4"
                 onError={(e) => {
                   console.log("Image failed to load:", user.photoURL);
                   e.target.style.display = 'none';
@@ -141,17 +142,17 @@ const Header = () => {
             
             {/* Fallback avatar - show if no photoURL or image fails to load */}
             <div 
-              className="rounded-full h-10 w-10 mr-4 bg-red-600 flex items-center justify-center text-white font-bold"
+              className="rounded-full h-8 w-8 sm:h-10 sm:w-10 mr-2 sm:mr-4 bg-red-600 flex items-center justify-center text-white font-bold text-sm sm:text-base"
               style={{ display: user.photoURL ? 'none' : 'flex' }}
             >
               {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
             </div>
             
-            <button className="flex items-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors" onClick={handleSignOut}>
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button className="flex items-center bg-red-600 hover:bg-red-700 text-white px-2 sm:px-4 py-2 rounded transition-colors text-sm sm:text-base" onClick={handleSignOut}>
+              <svg className="w-4 h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
-              Logout
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </>
         )}

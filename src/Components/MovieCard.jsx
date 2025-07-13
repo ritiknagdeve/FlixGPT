@@ -8,7 +8,7 @@ const MovieCard = ({movie}) => {
   if (!posterPath) return null;
   
   return (
-    <div className="px-4 flex-shrink-0 w-64 group cursor-pointer transition-all duration-300 hover:scale-105">
+    <div className="px-2 sm:px-4 flex-shrink-0 w-32 sm:w-64 group cursor-pointer transition-all duration-300 hover:scale-105">
       <div className="relative overflow-hidden rounded-lg">
         <img 
           src={`${imgCDNURL}${posterPath}`} 
@@ -24,7 +24,7 @@ const MovieCard = ({movie}) => {
         </div>
       </div>
       
-      <h3 className="text-white text-sm mt-2 truncate group-hover:text-gray-300 transition-colors">
+      <h3 className="text-white text-xs sm:text-sm mt-1 sm:mt-2 truncate group-hover:text-gray-300 transition-colors">
         {movie.title}
       </h3>
     </div>

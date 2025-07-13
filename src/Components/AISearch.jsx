@@ -89,26 +89,26 @@ const AISearch = () => {
     <>
     <div className="mb-4 bg-black text-white">
       {/* Content Container with proper spacing from header */}
-      <div className="pt-24 px-8 flex justify-center">
+      <div className="pt-16 sm:pt-24 px-4 sm:px-8 flex justify-center">
         <div className="w-full max-w-4xl">
           {/* Title Section */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-2">Your Movie Reccomendation Buddy!</h1>
-            <p className="text-gray-400 text-lg">Discover your next favorite movie with AI recommendations</p>
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-4xl font-bold mb-2">Your Movie Reccomendation Buddy!</h1>
+            <p className="text-gray-400 text-sm sm:text-lg">Discover your next favorite movie with AI recommendations</p>
           </div>
           
           {/* Search Form */}
-          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-4 w-3/4 mx-auto">
+          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4 w-full sm:w-3/4 mx-auto">
             <input ref={searchText}
               type="text"
               placeholder="What movie are you looking for?"
-              className="flex-1 p-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 text-base"
+              className="w-full p-3 sm:p-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 text-sm sm:text-base"
             />
             <button onClick={handleAISearch}
               type="submit"
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold min-w-[120px] flex items-center justify-center"
+              className="w-full sm:w-auto bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold flex items-center justify-center text-sm sm:text-base"
             >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               Ask AI
