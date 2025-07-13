@@ -23,7 +23,6 @@ const AISearch = () => {
       return data.results; // Return the results instead of dispatching
 
     } catch (error) {
-      console.log("Error fetching TMDB movie:", error);
       return []; // Return empty array on error
     }
   }
@@ -36,8 +35,6 @@ const AISearch = () => {
 
     const query = "Act as a movie recommendation system and suggest some movies for the query: " + searchquery + ". Only give me names of 5 movies , comma seperated like the example result given ahead. Example Result: Golmaal, Dhamaal, Hera Pheri, Dhol, Chup Chup ke.";
 
-    console.log(query);
-    
     // Set loading state
     dispatch(setLoading(true));
     
@@ -58,19 +55,15 @@ const AISearch = () => {
       
       // Parse the response
       const data = await response.json();
-      console.log("AI Response:", data);
       
       // store the AI response to redux store
       dispatch(addAiResults(data.text));
 
       const aiMoviesArray = data.text.split(',');
-      console.log("API Movies Array:", aiMoviesArray);
 
       const tmdbMovies = aiMoviesArray.map((movie) => searchTmdbMovie(movie));
-      console.log("TMDB Movies Promises:", tmdbMovies);
 
       const finalResults = await Promise.all(tmdbMovies);
-      console.log("Final Results:", finalResults);
      
       dispatch(addTmdbResults(finalResults));
       
@@ -78,7 +71,6 @@ const AISearch = () => {
 
       
     } catch (error) {
-        console.error("Error fetching AI response:", error);
         alert("Failed to get AI response. Please try again later.");
         dispatch(setLoading(false)); // Stop loading on error
     }

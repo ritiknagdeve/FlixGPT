@@ -2,7 +2,6 @@ import React from 'react'
 import {imgCDNURL} from '../utils/constants';
 
 const MovieCard = ({movie}) => {
-  console.log("MovieCard", movie);
   const posterPath = movie.poster_path;
   
   if (!posterPath) return null;

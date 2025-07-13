@@ -21,12 +21,10 @@ const Header = () => {
   const handleSignOut = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
-      console.log("User signed out successfully");
 
 
     }).catch((error) => {
       // An error happened.
-      console.log("Sign-out error:", error);
     });
 
   }
@@ -70,14 +68,12 @@ const Header = () => {
             
             
           } catch (error) {
-            console.error("Error updating profile:", error);
             // Still add user to store even if profile update fails
             dispatch(addUser({uid, email, displayName, photoURL}));
           }
         } else {
           // User already has displayName and photoURL
           dispatch(addUser({uid, email, displayName, photoURL}));
-          console.log("User is signed in:", {uid, email, displayName, photoURL});
         }
         if (window.location.pathname === '/browse/ai-search') {
           setIsAISearchPage(true);
@@ -90,7 +86,6 @@ const Header = () => {
       } else {
         // User is signed out
         dispatch(removeUser());
-        console.log("User is signed out");
         navigate('/'); // Redirect to login page after sign out
       }
       
@@ -133,7 +128,6 @@ const Header = () => {
                 alt="dp" 
                 className="rounded-full h-8 w-8 sm:h-10 sm:w-10 mr-2 sm:mr-4"
                 onError={(e) => {
-                  console.log("Image failed to load:", user.photoURL);
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'flex';
                 }}

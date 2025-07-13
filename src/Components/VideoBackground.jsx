@@ -10,30 +10,25 @@ const VideoBackground = ({movieId}) => {
   const getMovieVideos = async (movieId) => {
     try {
       const data = await fetch('https://api.themoviedb.org/3/movie/' + movieId + '/videos?language=en-US', options);
-      console.log("MovieId", movieId);
 
       if (!data.ok) {
         throw new Error(`HTTP error! status: ${data.status}`);
       }
 
       const json = await data.json();
-      console.log("Movie Videos:", json);
       
       // Filter for trailers
       const trailers = json.results?.filter(video => video.type === "Trailer");
-      console.log("Trailers found:", trailers);
 
       const trailerToPlay = trailers?.[1] || trailers?.[0];
-      console.log("Trailer to play:", trailerToPlay);
 
       const key = trailerToPlay?.key;
-      console.log("Trailer key:", key);
       
       // Set the trailer key in state
       setTrailerKey(key);
       
     } catch (error) {
-      console.error("Error fetching movie videos:", error);
+      // Handle error silently
     }
   } 
 

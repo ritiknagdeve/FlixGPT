@@ -24,12 +24,10 @@ const Login = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log("Google Sign-in successful:", user);
         navigate('/browse'); // Redirect to browse page after successful Google sign-in
         // Redirect to dashboard/home page
       })
       .catch((error) => {
-        console.error("Google Sign-in error:", error);
         setError(error.message);
       });
   };
@@ -50,7 +48,6 @@ const Login = () => {
     const passwordValue = password.current.value;
 
     const validation = validate(emailValue, passwordValue, isSignIn);
-    // console.log(validation);
     if(validation !== null) {
       setError(validation);
       return; 
@@ -63,12 +60,10 @@ const Login = () => {
         // Signed up 
         const user = userCredential.user;
         navigate('/browse'); // Redirect to browse page after successful signup
-        // console.log("User created:", user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // console.log("Error: " + errorMessage);
         setError(errorMessage); 
       });
     }
@@ -78,13 +73,11 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        console.log(user);
         navigate('/browse'); // Redirect to browse page after successful signin
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log("Error: " + errorMessage);
         setError(errorMessage);
       });
 

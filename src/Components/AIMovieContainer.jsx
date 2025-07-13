@@ -23,12 +23,8 @@ const ShimmerMovieList = ({ title }) => (
 );
 
 const AIMovieContainer = () => {
-  console.log("AIMovieContainer rendered");
   
   const {aiResults, tmdbResults, isLoading} = useSelector((store) => store.ai);
-  console.log("AI Results:", aiResults);
-  console.log("TMDB Results:", tmdbResults);
-  console.log("Is Loading:", isLoading);
 
   // Show shimmer when loading
   if (isLoading) {
