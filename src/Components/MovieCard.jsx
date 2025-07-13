@@ -8,12 +8,12 @@ const MovieCard = ({movie}) => {
   if (!posterPath) return null;
   
   return (
-    <div className="flex-shrink-0 w-48  group cursor-pointer transition-all duration-300 hover:scale-105">
+    <div className="flex-shrink-0 w-64 group cursor-pointer transition-all duration-300 hover:scale-105">
       <div className="relative overflow-hidden rounded-lg">
         <img 
           src={`${imgCDNURL}${posterPath}`} 
           alt={movie.title}
-          className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
+          className="transition-transform duration-300 group-hover:scale-110"
         />
         
         {/* Hover Overlay */}
