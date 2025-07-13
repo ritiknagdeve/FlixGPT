@@ -23,7 +23,7 @@ const VideoBackground = ({movieId}) => {
       const trailers = json.results?.filter(video => video.type === "Trailer");
       console.log("Trailers found:", trailers);
 
-      const trailerToPlay = trailers?.[0];
+      const trailerToPlay = trailers?.[1] || trailers?.[0];
       console.log("Trailer to play:", trailerToPlay);
 
       const key = trailerToPlay?.key;
@@ -44,11 +44,11 @@ const VideoBackground = ({movieId}) => {
   }, [movieId]);
 
   return (
-    <div className="relative">
+    <div className="relative w-[99vw] h-screen overflow-hidden">
       {trailerKey && (
         <>
           <iframe 
-            className="w-[99vw] h-screen aspect-video"
+            className="absolute top-0 left-0 w-[133vw] h-[133vh] -translate-x-[16.5vw] -translate-y-[16.5vh]"
             src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${isPlaying ? 1 : 0}&mute=${isMuted ? 1 : 0}&controls=0&showinfo=0&loop=1&playlist=${trailerKey}&rel=0&modestbranding=1&enablejsapi=1`}
             title="YouTube video player" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  

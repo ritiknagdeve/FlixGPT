@@ -1,6 +1,6 @@
 // we will create FlixGPT header component we have tailwind configured with us
 
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import flixgptLogo from '../assets/flixgpt-logo.svg'
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { addUser, removeUser } from '../utils/userSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Header = () => {
 
   useEffect(() => {
    
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
       
         const {uid, email, displayName, photoURL} = user;
@@ -73,11 +74,14 @@ const Header = () => {
         console.log("User is signed out");
         navigate('/'); // Redirect to login page after sign out
       }
+      
+      // Auth check is complete
+      setIsAuthLoading(false);
     });
 
     return(() => {
       // Cleanup function to unsubscribe from auth state changes
-      // onAuthStateChanged(auth, null);
+      unsubscribe();
     });
   }, []);
 
@@ -88,7 +92,8 @@ const Header = () => {
           <img src={flixgptLogo} alt="FlixGPT Logo" className="h-12 w-auto mr-4" />
       </div>
       <div className="flex items-center">
-        {user && (
+        {/* Show user controls only when auth is loaded and user exists */}
+        {!isAuthLoading && user && (
           <>
             {user.photoURL ? (
               <img 
@@ -118,6 +123,11 @@ const Header = () => {
               Logout
             </button>
           </>
+        )}
+        
+        {/* Optional: Show loading indicator while auth is checking */}
+        {isAuthLoading && (
+          <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
         )}
       </div>
     </div>
