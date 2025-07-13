@@ -109,7 +109,7 @@ const Login = () => {
       </div>
       
       {/* Content Area */}
-      <div className="relative z-10 flex items-center justify-center pt-20">
+      <div className="relative z-10 flex items-center justify-center pt-28">
         <form className="bg-black bg-opacity-75 p-12 rounded-xl w-full max-w-md mx-4">
           <h1 className="text-white text-3xl font-bold mb-8">{isSignIn ? "Sign In" : "Sign Up"}</h1>
           { !isSignIn && <input 

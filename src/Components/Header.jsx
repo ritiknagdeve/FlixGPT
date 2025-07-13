@@ -83,7 +83,7 @@ const Header = () => {
 
   return (
     <>
-    <div className="absolute top-0 left-0 w-full z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/70 via-black/20 to-transparent">
+    <div className="absolute top-0 left-0 w-full z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent">
       <div className="flex items-center p-4">
           <img src={flixgptLogo} alt="FlixGPT Logo" className="h-12 w-auto mr-4" />
       </div>
