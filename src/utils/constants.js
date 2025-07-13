@@ -10,5 +10,4 @@ export const options = {
 
 export const imgCDNURL = "https://image.tmdb.org/t/p/w500"
 
-export const googleGeminiAPIKey = "AIzaSyAx4f9xZn1Ciuv1T83pCvgg7vYbg_qerm8";
 

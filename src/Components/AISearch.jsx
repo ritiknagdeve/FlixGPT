@@ -1,7 +1,5 @@
 import React from 'react'
 import {useRef} from 'react';
-import {ai} from '../utils/gemini';
-import {googlegeminiAPIKey} from '../utils/constants';
 
 const AISearch = async() => {
 
@@ -13,11 +11,7 @@ const AISearch = async() => {
     }
     const query = searchText.current.value.trim();
 
-    const aiResults = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: query,
-    });
-    console.log(response.text);
+    console.log(query);
     
  }
   
