@@ -79,7 +79,14 @@ const Header = () => {
           dispatch(addUser({uid, email, displayName, photoURL}));
           console.log("User is signed in:", {uid, email, displayName, photoURL});
         }
-        navigate('/browse'); // Redirect to browse page after sign in
+        if (window.location.pathname === '/browse/ai-search') {
+          setIsAISearchPage(true);
+          navigate('/browse/ai-search');
+        } else {
+          setIsAISearchPage(false);
+          navigate('/browse');
+        }
+         // Redirect to browse page after sign in
       } else {
         // User is signed out
         dispatch(removeUser());

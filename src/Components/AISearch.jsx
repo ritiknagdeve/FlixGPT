@@ -1,23 +1,93 @@
 import React from 'react'
 import {useRef} from 'react';
+import { useDispatch } from 'react-redux';
+import { addAiResults, addTmdbResults, setLoading } from '../utils/aiSlice';
+import { options } from '../utils/constants';
+import AIMovieContainer from './AIMovieContainer'; 
 
-const AISearch = async() => {
+const AISearch = () => {
+  
+  const dispatch = useDispatch();
 
   const searchText = useRef(null);
-  const handleAISearch = async() => {
+
+  const searchTmdbMovie = async (movieName) => {
+    // Function to search TMDB for a movie by name
+    const apiURL = 'https://api.themoviedb.org/3/search/movie?query='+ movieName.trim() +'&include_adult=false&language=en-US&page=1';
+    try {
+      const response = await fetch(apiURL, options);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.results; // Return the results instead of dispatching
+
+    } catch (error) {
+      console.log("Error fetching TMDB movie:", error);
+      return []; // Return empty array on error
+    }
+  }
+  const handleAISearch = async () => {
     if(searchText.current.value.trim() === "") {
       alert("Please enter a search query");
       return;
     }
-    const query = searchText.current.value.trim();
+    const searchquery = searchText.current.value.trim();
+
+    const query = "Act as a movie recommendation system and suggest some movies for the query: " + searchquery + ". Only give me names of 5 movies , comma seperated like the example result given ahead. Example Result: Golmaal, Dhamaal, Hera Pheri, Dhol, Chup Chup ke.";
 
     console.log(query);
     
+    // Set loading state
+    dispatch(setLoading(true));
+    
+    try {
+      // Make API call to your backend server
+      const response = await fetch('/api/ask', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ prompt: query }),
+      });
+      
+      // Check if response is ok
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      // Parse the response
+      const data = await response.json();
+      console.log("AI Response:", data);
+      
+      // store the AI response to redux store
+      dispatch(addAiResults(data.text));
+
+      const aiMoviesArray = data.text.split(',');
+      console.log("API Movies Array:", aiMoviesArray);
+
+      const tmdbMovies = aiMoviesArray.map((movie) => searchTmdbMovie(movie));
+      console.log("TMDB Movies Promises:", tmdbMovies);
+
+      const finalResults = await Promise.all(tmdbMovies);
+      console.log("Final Results:", finalResults);
+     
+      dispatch(addTmdbResults(finalResults));
+      
+      //pass the AI response to tmdb API to get movie details
+
+      
+    } catch (error) {
+        console.error("Error fetching AI response:", error);
+        alert("Failed to get AI response. Please try again later.");
+        dispatch(setLoading(false)); // Stop loading on error
+    }
  }
   
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <>
+    <div className="mb-4 bg-black text-white">
       {/* Content Container with proper spacing from header */}
       <div className="pt-24 px-8 flex justify-center">
         <div className="w-full max-w-4xl">
@@ -49,6 +119,8 @@ const AISearch = async() => {
         </div>
       </div>
     </div>
+    <AIMovieContainer />
+    </>
   )
 }
 
