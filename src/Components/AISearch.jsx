@@ -101,7 +101,7 @@ const AISearch = () => {
           <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-4 w-3/4 mx-auto">
             <input ref={searchText}
               type="text"
-              placeholder=""
+              placeholder="What movie are you looking for?"
               className="flex-1 p-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 text-base"
             />
             <button onClick={handleAISearch}
