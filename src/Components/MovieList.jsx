@@ -34,7 +34,7 @@ const MovieList = ({title, movies}) => {
 
   return (
     <div className="px-8 py-4">       
-      <h2 className="text-white text-2xl font-bold mb-4">{title}</h2>
+      <h2 className="text-white text-2xl font-bold px-4 mb-4">{title}</h2>
       <div className="relative group">
         
         {/* Left Arrow */}
