@@ -83,7 +83,7 @@ const Header = () => {
 
   return (
     <>
-    <div className="flex items-center justify-between p-4">
+    <div className="absolute top-0 left-0 w-full z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/70 via-black/20 to-transparent">
       <div className="flex items-center p-4">
           <img src={flixgptLogo} alt="FlixGPT Logo" className="h-12 w-auto mr-4" />
       </div>
@@ -91,13 +91,26 @@ const Header = () => {
         {user && (
           <>
             {user.photoURL ? (
-              <img src={user.photoURL} alt="user dp" className="rounded-full h-10 w-10 mr-4" />
-            ) 
-            : (
-              <div className="rounded-full h-10 w-10 mr-4 bg-gray-500 flex items-center justify-center text-white font-bold">
-                {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
-              </div>
-            )}
+              <img 
+                src={user.photoURL} 
+                alt="dp" 
+                className="rounded-full h-10 w-10 mr-4"
+                onError={(e) => {
+                  console.log("Image failed to load:", user.photoURL);
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+            ) : null}
+            
+            {/* Fallback avatar - show if no photoURL or image fails to load */}
+            <div 
+              className="rounded-full h-10 w-10 mr-4 bg-red-600 flex items-center justify-center text-white font-bold"
+              style={{ display: user.photoURL ? 'none' : 'flex' }}
+            >
+              {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
+            </div>
+            
             <button className="flex items-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors" onClick={handleSignOut}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
