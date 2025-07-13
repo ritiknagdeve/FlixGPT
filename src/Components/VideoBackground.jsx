@@ -45,7 +45,7 @@ const VideoBackground = ({movieId}) => {
 
   return (
     <div className="relative">
-      {trailerKey ? (
+      {trailerKey && (
         <>
           <iframe 
             className="w-[99vw] h-screen object-cover"
@@ -92,14 +92,8 @@ const VideoBackground = ({movieId}) => {
             </button>
           </div>
         </>
-      ) : (
-        <div className="w-screen h-screen bg-gray-900 flex items-center justify-center">
-          <div className="text-white text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-            <p>Loading trailer...</p>
-          </div>
-        </div>
-      )}
+      )
+      }
     </div>
   )
 }

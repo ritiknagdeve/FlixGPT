@@ -11,7 +11,7 @@ const MainContainer = () => {
   console.log("Movies slice:", useSelector(store => store.movies));
   console.log("Now playing movies:", movies);
   
-  if(!movies) return <div>Loading movies...</div>;
+  if(!movies) return;
 
   const mainMovie = movies?.[0];
   console.log("mainMovie: " ,mainMovie);
