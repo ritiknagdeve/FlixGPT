@@ -10,9 +10,11 @@ const Browse = () => {
 
   return (
     <>
-    <Header />
-    <MainContainer />
-    <SecondaryContainer />
+    <div className="min-h-screen bg-black">
+      <Header />
+      <MainContainer />
+      <SecondaryContainer />
+    </div>
     </>
   )
 }
