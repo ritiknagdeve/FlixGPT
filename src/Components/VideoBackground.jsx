@@ -48,7 +48,7 @@ const VideoBackground = ({movieId}) => {
       {trailerKey && (
         <>
           <iframe 
-            className="w-[99vw] h-screen object-cover"
+            className="w-[99vw] h-screen aspect-video"
             src={`https://www.youtube.com/embed/${trailerKey}?autoplay=${isPlaying ? 1 : 0}&mute=${isMuted ? 1 : 0}&controls=0&showinfo=0&loop=1&playlist=${trailerKey}&rel=0&modestbranding=1&enablejsapi=1`}
             title="YouTube video player" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  
