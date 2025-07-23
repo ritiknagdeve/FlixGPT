@@ -1,10 +1,16 @@
 import React, { useRef, useState } from 'react'
+
 import MovieCard from './MovieCard';
+import MovieModal from './MovieModal';
 
 const MovieList = ({title, movies}) => {
+
   const scrollRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const handleCardClick = (movie) => setSelectedMovie(movie);
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -74,10 +80,14 @@ const MovieList = ({title, movies}) => {
           }}
         >
           {movies && movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie.id} movie={movie} onClick={handleCardClick} />
           ))}
         </div>
       </div>
+      {/* Movie Modal Popup */}
+      {selectedMovie && (
+        <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
+      )}
     </div>
   )
 }

@@ -103,7 +103,7 @@ const Header = () => {
     <>
     <div className="absolute top-0 left-0 w-full z-20 flex items-center justify-between p-2 sm:p-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent">
       <div className="flex items-center p-2 sm:p-4">
-          <img src={flixgptLogo} alt="FlixGPT Logo" className="h-8 sm:h-12 w-auto mr-2 sm:mr-4" />
+          <img src={flixgptLogo}  alt="FlixGPT Logo" className="h-8 sm:h-12 w-auto mr-2 sm:mr-4" />
       </div>
       <div className="flex items-center gap-2 sm:gap-0">
         {/* Show user controls only when auth is loaded and user exists */}
